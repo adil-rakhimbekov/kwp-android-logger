@@ -1,9 +1,14 @@
 package com.brianledbetter.kwplogger;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.util.Log;
 
 import com.brianledbetter.kwplogger.KWP2000.DiagnosticSession;
@@ -57,6 +62,7 @@ public class DiagnosticsService extends PermanentService {
     public DiagnosticsService() {
         super("com.brianledbetter.kwplogger.KWP2000Service");
     }
+
     @Override
     protected void onHandleIntent(Intent intent) {
         if (intent == null) return;
@@ -119,7 +125,7 @@ public class DiagnosticsService extends PermanentService {
 
     private ECUIdentification startConnection(int initAddress, int remoteAddress, String bluetoothDevice) {
         try {
-            if(!connectBluetooth(initAddress, remoteAddress, bluetoothDevice)) return null;
+            if (!connectBluetooth(initAddress, remoteAddress, bluetoothDevice)) return null;
             connectKWP2000();
             ECUIdentification ecuID = m_kwp.readECUIdentification();
             Log.d("KWP", "Got string " + ecuID.hardwareNumber + " for hardware number");
@@ -137,6 +143,8 @@ public class DiagnosticsService extends PermanentService {
         }
     }
 
+    @SuppressLint("MissingPermission")
+    //@TargetApi(Build.VERSION_CODES.M)
     private boolean connectBluetooth(int initAddress, int remoteAddress, String bluetoothDeviceAddress) {
         BluetoothAdapter b = BluetoothAdapter.getDefaultAdapter();
         BluetoothDevice bluetoothDevice = b.getRemoteDevice(bluetoothDeviceAddress);

@@ -1,5 +1,7 @@
 package com.brianledbetter.kwplogger;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.DialogFragment;
 import android.app.ListActivity;
 import android.bluetooth.BluetoothAdapter;
@@ -8,6 +10,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.Menu;
@@ -44,7 +48,7 @@ public class DiagnosticCodesActivity extends ListActivity implements BluetoothPi
                 }
             }
         });
-        String[] values = new String[] { "Not Connected" };
+        String[] values = new String[]{"Not Connected"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, values);
         setListAdapter(adapter);
@@ -80,6 +84,7 @@ public class DiagnosticCodesActivity extends ListActivity implements BluetoothPi
         registerReceiver(m_receiver, ecuFilter);
     }
 
+    //@TargetApi(Build.VERSION_CODES.M)
     public void startConnection() {
         BluetoothAdapter b = BluetoothAdapter.getDefaultAdapter();
 

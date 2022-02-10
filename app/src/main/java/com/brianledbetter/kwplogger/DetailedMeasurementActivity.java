@@ -1,5 +1,7 @@
 package com.brianledbetter.kwplogger;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.bluetooth.BluetoothAdapter;
@@ -8,6 +10,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
@@ -84,8 +88,8 @@ public class DetailedMeasurementActivity extends ActionBarActivity implements Bl
     public void onDialogPositiveClick(DialogFragment dialog, String selectedDevice) {
         Intent startIntent = new Intent(this, DiagnosticsService.class);
         startIntent.setAction(DiagnosticsService.START_DIAGNOSTICS_SERVICE);
-        String initAddress = ((EditText)findViewById(R.id.initAddress)).getText().toString();
-        String remoteAddress = ((EditText)findViewById(R.id.controllerAddress)).getText().toString();
+        String initAddress = ((EditText) findViewById(R.id.initAddress)).getText().toString();
+        String remoteAddress = ((EditText) findViewById(R.id.controllerAddress)).getText().toString();
         startIntent.putExtra(DiagnosticsService.INIT_ADDRESS, Integer.parseInt(initAddress));
         startIntent.putExtra(DiagnosticsService.REMOTE_ADDRESS, Integer.parseInt(remoteAddress));
         startIntent.putExtra(DiagnosticsService.BLUETOOTH_DEVICE, selectedDevice);
@@ -98,6 +102,7 @@ public class DetailedMeasurementActivity extends ActionBarActivity implements Bl
         toggle.setChecked(false);
     }
 
+    //@TargetApi(Build.VERSION_CODES.M)
     public void startConnection() {
         BluetoothAdapter b = BluetoothAdapter.getDefaultAdapter();
 

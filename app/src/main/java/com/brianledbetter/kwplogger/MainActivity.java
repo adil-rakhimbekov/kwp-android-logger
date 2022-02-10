@@ -1,5 +1,6 @@
 package com.brianledbetter.kwplogger;
 
+import android.annotation.SuppressLint;
 import android.app.DialogFragment;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -102,6 +103,7 @@ public class MainActivity extends ActionBarActivity implements BluetoothPickerDi
         toggle.setChecked(false);
     }
 
+    @SuppressLint("MissingPermission")
     public void startConnection() {
         BluetoothAdapter b = BluetoothAdapter.getDefaultAdapter();
 

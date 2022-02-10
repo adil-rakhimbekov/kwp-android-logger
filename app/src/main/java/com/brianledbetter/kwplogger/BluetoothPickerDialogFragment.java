@@ -1,11 +1,15 @@
 package com.brianledbetter.kwplogger;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.bluetooth.BluetoothDevice;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.widget.Button;
@@ -21,6 +25,7 @@ public class BluetoothPickerDialogFragment extends DialogFragment {
 
     public interface BluetoothDialogListener {
         public void onDialogPositiveClick(DialogFragment dialog, String selectedDevice);
+
         public void onDialogNegativeClick(DialogFragment dialog);
     }
 
@@ -49,6 +54,7 @@ public class BluetoothPickerDialogFragment extends DialogFragment {
         }
     }
 
+    //@TargetApi(Build.VERSION_CODES.M)
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
@@ -57,7 +63,7 @@ public class BluetoothPickerDialogFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         CharSequence[] bluetoothDevices = new CharSequence[mPossibleDevices.length];
         for (int i = 0; i < mPossibleDevices.length; i++) {
-            bluetoothDevices[i] = ((BluetoothDevice)mPossibleDevices[i]).getName();
+            bluetoothDevices[i] = ((BluetoothDevice) mPossibleDevices[i]).getName();
         }
         mSelectedDevice = ((BluetoothDevice)mPossibleDevices[0]).getAddress();
         builder.setTitle(R.string.pick_bluetooth)

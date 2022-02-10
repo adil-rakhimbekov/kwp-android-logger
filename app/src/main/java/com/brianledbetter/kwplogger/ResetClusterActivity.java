@@ -1,5 +1,6 @@
 package com.brianledbetter.kwplogger;
 
+import android.annotation.SuppressLint;
 import android.app.DialogFragment;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -20,6 +21,7 @@ public class ResetClusterActivity extends ActionBarActivity implements Bluetooth
         setContentView(R.layout.reset_cluster);
     }
 
+    @SuppressLint("MissingPermission")
     public void startConnection(View v) {
         BluetoothAdapter b = BluetoothAdapter.getDefaultAdapter();
 
